@@ -1,66 +1,54 @@
-# Assignment 3 Testing Checklist
+# Assignment 3 Verification Record
 
-## Completed automatically — 2026-11-21
+Verification date: 2026-11-21 (Asia/Riyadh).
 
-- [x] Both JavaScript files pass `node --check`.
-- [x] 32 DOM checks pass using Node.js and jsdom, installed separately from the app.
-- [x] Filter selection survives sorting; sorting survives category changes; Featured restores original order.
-- [x] Theme toggles, is restored from stored state on a fresh simulated page, follows device preference without a valid stored value, and handles blocked storage.
-- [x] Empty, whitespace-only, invalid-email, and valid form entries behave as expected; editing clears feedback.
-- [x] Mocked GitHub success, missing descriptions/languages, empty results, offline failure, HTTP 500/403/429, invalid JSON/shape, unsafe links, and timeout receive appropriate handling.
-- [x] Retry recovers without duplicate cards; no more than six cards appear; external descriptions remain text.
-- [x] The actual API endpoint returned HTTP 200 with three repositories at test time.
+## Agent-run checks
 
-## Follow-up checks after the theme fix — 2026-11-21
-
-- [x] User confirmed project filtering and sorting work in the initial version.
-- [x] User reported unreadable dark-theme header text and an unclear theme button; fixed through dedicated color roles and a stateful switch.
-- [x] Re-ran 32 updated DOM checks successfully after the fix.
-- [x] Checked 48 theme contrast combinations; the 46 text combinations have a minimum calculated contrast of 5.17:1 and both form/select boundary combinations meet 3:1.
-- [x] Checked switch role, accessible name, checked state, visible Light/Dark label, next-action tooltip, and readable API assignment titles.
-- [ ] User visually verifies the revised header, footer, selected filters, primary buttons, form fields, and switch in both themes.
-
-## Complete personally in a browser
-
-Use VS Code Live Server or a local Python server. Record actual results below. Do not mark checks passed before doing them.
-
-- [ ] Load the site and confirm both images display clearly.
-- [ ] Choose All and sort A–Z: Hub should appear before Room Booking. Choose Z–A: reverse order.
-- [ ] Choose Java, change sorting, then choose All: only Java appears while filtered, and the selected sorting is preserved afterward.
-- [ ] Use the Theme switch, check its Light/Dark label and thumb, reload, and verify the preference persists. Toggle back and reload again.
-- [ ] Inspect headings, links, fields, selected buttons, and success/error feedback in both themes.
-- [ ] Confirm live GitHub repositories and their links load correctly.
-- [ ] In DevTools Network request blocking, block `*api.github.com*`, reload, and check the error message. Unblock, then select Retry and confirm recovery. Request blocking is preferable to full offline mode because the local page must still load.
-- [ ] Try empty fields, spaces-only name/message, an invalid email, and valid input. Confirm no message is claimed to have been sent.
-- [ ] Navigate with Tab/Shift+Tab; activate buttons with Enter/Space and use arrow keys in the sorting select.
-- [ ] Check widths 320px, 768px, and 1440px for clipping, overlaps, horizontal scrolling, and usable controls.
-- [ ] Check the Console for unexpected JavaScript errors. Expected network failures during the deliberate API test are not application crashes.
-- [ ] Repeat core features in another browser and, if available, on a real phone.
-- [x] User ran Mobile Lighthouse and supplied the report plus expanded diagnostics. Initial scores: 91 / 100 / 96 / 100, CLS 0.193.
-- [x] Addressed the favicon 404 and reserved initial space for the theme/sort controls and project count. Six startup/asset checks passed.
-- [ ] Rerun Mobile Lighthouse after the startup correction, using the homepage URL without a section fragment; record the new scores and CLS without estimating them.
-
-| Check | Actual browser / viewport / mode | Result / notes |
+| Check | Result | Scope |
 |---|---|---|
-| Layout and images | Pending | Pending |
-| Filters and sorting | User browser, initial version | User confirmed passed; recheck after refinement |
-| Keyboard navigation | Pending | Pending |
-| Theme and reload | Pending | Pending |
-| Live API and recovery | Pending | Pending |
-| Contact validation | Pending | Pending |
-| Second browser / phone | Pending | Pending |
-| Lighthouse Performance | Mobile, emulated Moto G Power / Slow 4G | Initial report: 91; post-correction rerun pending |
-| Lighthouse Accessibility | Same initial Mobile report | 100 |
-| Lighthouse Best Practices | Same initial Mobile report | 96; favicon 404 identified; rerun pending |
-| Lighthouse SEO | Same initial Mobile report | 100 |
+| JavaScript syntax | Passed | Both JS files checked with Node |
+| Local asset references | Passed | HTML stylesheet, scripts, images, and favicon exist |
+| Functional DOM checks | 32 passed | Filter/sort combinations, theme persistence/storage failure, form validation, API loading/error/empty/retry/timeout and safe rendering |
+| Theme color checks | 48 combinations passed | 46 text combinations at 5.17:1 or higher; two form/select boundary combinations at 3:1 or higher |
+| Startup checks | Six passed | Switch/sort/count occupy initial HTML space; controls enable after initialization; SVG favicon exists |
+| Delivery patches | Passed | Each update reproduces the expected Git tree when applied to its baseline |
 
-## Before Blackboard submission
+DOM simulation and mathematical contrast checks do not measure rendered browser layout or a Lighthouse score.
 
-- [ ] Review and understand the new JavaScript and CSS.
-- [ ] Adapt the AI output as needed, record real changes, and rerun affected checks.
-- [ ] Finish the AI usage report, including personal learning, review notes, and a truthful dated declaration.
-- [ ] Export the complete, unedited current conversation and any other AI conversations.
-- [ ] Include original AI artifacts and reconcile their IDs with the usage log.
-- [ ] Keep Assignment 2 provenance available for inherited code.
-- [ ] Confirm the final changes are merged to `main` and visible in the public repository.
-- [ ] Submit the repository link and the completed Assignment 3 AI Evidence ZIP on Blackboard.
+## Student-run checks
+
+The results below follow the student's explicit confirmation in the complete C01 conversation. Desktop screenshots additionally show both themes and successful API rendering.
+
+| Check | Result | Details |
+|---|---|---|
+| Desktop layout and project images | Passed | Full-page screenshots in Light and Dark |
+| Filtering and sorting | Passed | User explicitly confirmed working; combined behavior covered by agent checks |
+| Mobile layout | Passed, user-confirmed | 320px and 768px checks requested and confirmed; no clipping/sideways scrolling reported |
+| Theme and reload | Passed, user-confirmed | Saved preference survives refresh |
+| Contact validation | Passed, user-confirmed | Empty/invalid inputs rejected; valid input produces the demo confirmation |
+| Keyboard | Passed, user-confirmed | Tab focus and Enter/Space button operation |
+| Live API and failure recovery | Passed, user-confirmed | Blocked API request, unblocked, and retried successfully |
+| Additional browser | Passed, user-confirmed | Core functionality; exact browser/version was not recorded |
+
+A physical-phone or screen-reader test is not claimed. The initial theme defect was found through student review, corrected, and followed by screenshots showing the corrected presentation.
+
+## Mobile Lighthouse
+
+The original uploaded report used localhost, an emulated Moto G Power, Slow 4G throttling, Lighthouse 13.5.0, and Chromium 157.0.0.0.
+
+| Category | Original supplied report | Final student-reported result |
+|---|---:|---:|
+| Performance | 91 | 100 |
+| Accessibility | 100 | 100 |
+| Best Practices | 96 | 100 |
+| SEO | 100 | 100 |
+
+The original run recorded CLS 0.193 and a missing favicon 404. The code now reserves the initial space for the theme/sort controls and count, and declares a real SVG favicon. The student reported perfect scores after rerunning. The final numeric CLS was not supplied and is not inferred from the overall score.
+
+## Submission items
+
+Submit the public Assignment 3 repository link after final documentation is included on `main`, plus the completed evidence ZIP:
+
+`202339150-MohammedShublaq-assignment3-ai-evidence.zip`
+
+The ZIP contains complete unedited conversations, original AI-produced artifacts, and inherited Assignment 2 provenance. Evidence is submitted separately from GitHub. A live deployment is optional under the supplied assignment instructions.

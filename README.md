@@ -69,15 +69,17 @@ An internet connection is required for the GitHub section. The rest of the portf
 └── .gitignore
 ```
 
-## Testing and submission status
+## Testing
 
-JavaScript syntax checks, local asset/link checks, and 32 automated DOM checks passed on 2026-11-21. The real public GitHub endpoint also returned HTTP 200 and three repositories at test time. Mocked responses cover errors and unusual data. After the user reported a dark-theme contrast defect, 32 updated DOM checks passed again, together with 48 contrast combinations and switch-state/repository-title checks. Calculated text contrast in those combinations is at least 5.17:1. These checks do not replace rendering tests.
+The student confirmed that filtering/sorting, mobile layouts at 320px and 768px, theme persistence, contact validation, keyboard operation, API failure/retry, and core features in another browser passed. Full-page screenshots show the desktop layout and both themes. The additional browser's name/version was not recorded; a real-phone test is not claimed.
 
-DOM checks do not verify layout, browser rendering, or screen readers. Further cross-browser, keyboard, and post-correction Lighthouse checks remain pending. Complete [Testing Checklist](docs/testing-checklist.md) and the [AI report](docs/ai-usage-report.md) before submission. No live deployment is claimed. The user-provided initial Mobile Lighthouse run on localhost scored Performance 91, Accessibility 100, Best Practices 96, and SEO 100, with CLS 0.193. Follow-up code reserves control space from initial HTML and adds a favicon to address the reported startup shift and favicon 404. Six additional startup/asset checks passed; new Lighthouse scores after these fixes remain pending.
+After the startup/favicon correction, the student reported **100 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO** in Mobile Lighthouse. The original supplied report scored 91/100/96/100 with CLS 0.193. The final numerical CLS and other metrics were not supplied and are not estimated. Lighthouse scores describe the tested run, not a guarantee across every device or an exhaustive accessibility audit.
+
+Agent-run verification includes JavaScript syntax checks, local references, 32 functional DOM checks, 48 color combinations, and six startup/asset checks. See [Testing Checklist](docs/testing-checklist.md) and [Technical Documentation](docs/technical-documentation.md) for scope and results.
 
 ## AI assistance and inherited work
 
-ChatGPT assisted with planning, implementation, debugging, checks, and documentation. See the [Assignment 3 AI Usage Report](docs/ai-usage-report.md). Its review and declaration are pending the student's own verification; automated checks do not replace personal understanding.
+ChatGPT assisted with planning, implementation, debugging, checks, and documentation. See the [Assignment 3 AI Usage Report](docs/ai-usage-report.md). The report distinguishes AI-produced implementation, student review and test feedback, and agent-run checks. Complete conversations and original outputs are provided in the separate evidence ZIP, not the public repository.
 
 Assignment 2's report is preserved separately in [Assignment 2 AI Usage Report](docs/assignment2-ai-usage-report.md). Complete conversations and original AI artifacts belong in the separate Blackboard evidence ZIP, not this repository.
 

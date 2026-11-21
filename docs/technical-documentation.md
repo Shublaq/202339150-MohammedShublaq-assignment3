@@ -84,7 +84,7 @@ The app loads no frameworks or third-party font libraries. The main script uses 
 
 On 2026-11-21, both JavaScript files passed Node syntax checks. Thirty-two automated jsdom checks passed for filtering/sorting, theme state, storage failure, form validation, loading/success/empty/error/retry/timeout cases, invalid API data, safe text rendering, and the six-card limit. The actual GitHub endpoint independently returned HTTP 200 and three repositories at that time.
 
-These automated checks simulate a DOM; they are not browser compatibility, rendering, keyboard, screen-reader, or Lighthouse tests. A local Chromium launch failed due to execution-environment restrictions. At that stage, no browser rendering or performance score was claimed. The inherited Assignment 2 Chrome results do not establish results for this version. Complete the current checklist before claiming those checks passed.
+These automated checks simulate a DOM; they are not browser compatibility, rendering, keyboard, screen-reader, or Lighthouse tests. A local Chromium launch failed due to execution-environment restrictions. At that stage, no browser rendering or performance score was claimed. The inherited Assignment 2 Chrome results do not establish results for this version. The later student-run checks below provide the browser-test evidence for this version.
 
 ## User Lighthouse report and startup correction
 
@@ -96,4 +96,17 @@ The correction renders the switch and sorting row in normal flow from initial HT
 
 Reference: [web.dev: Optimize Cumulative Layout Shift](https://web.dev/articles/optimize-cls).
 
-The functional and color checks still pass, and six additional startup/asset checks passed. These are structural checks, not a measured new CLS score. A fresh browser Lighthouse run is required to confirm the outcome; do not replace the reported 0.193 or original scores with estimated results. For a normal homepage audit, start at `index.html` without the `#projects` fragment.
+The functional and color checks still passed, and six additional startup/asset checks passed. The student then reran Mobile Lighthouse and reported 100 in all four categories. The final numeric CLS was not supplied, so the earlier 0.193 remains identified only as the initial measurement. No replacement CLS or timing values are estimated.
+
+## Final student verification
+
+The student confirmed that mobile layout at 320px and 768px, theme persistence across refresh, contact validation, keyboard operation, API failure/retry, and core features in another browser all passed. Filtering and sorting were also confirmed earlier. Submitted desktop screenshots show both complete themes and populated API cards. The other browser's name/version was not recorded, and a real-phone or screen-reader test is not claimed.
+
+| Lighthouse category | Initial supplied report | Final student-reported run |
+|---|---:|---:|
+| Performance | 91 | 100 |
+| Accessibility | 100 | 100 |
+| Best Practices | 96 | 100 |
+| SEO | 100 | 100 |
+
+The original report and diagnostic screenshots identify the tested issues. The final scores and remaining manual test results are recorded from the student's confirmation in C01. These results have not been independently reproduced in the agent's restricted browser environment.
