@@ -76,7 +76,10 @@ themeToggle.hidden = false;
 
 function renderTheme() {
     document.documentElement.dataset.theme = state.theme;
-    themeToggle.setAttribute("aria-pressed", String(state.theme === "dark"));
+    const isDark = state.theme === "dark";
+    themeToggle.setAttribute("aria-checked", String(isDark));
+    themeToggle.title = isDark ? "Switch to light theme" : "Switch to dark theme";
+    document.getElementById("themeState").textContent = isDark ? "Dark" : "Light";
 }
 
 renderTheme();
@@ -108,14 +111,21 @@ function createRepositoryCard(repository) {
         throw new Error("Unexpected repository link.");
     }
     link.href = url.href;
-    link.textContent = repository.name;
+    // Give portfolio coursework a readable title without changing the real link.
+    const assignment = repository.name.match(/^202339150-MohammedShublaq-assignment(\d+)$/i);
+    link.textContent = assignment ? `Portfolio — Assignment ${assignment[1]}` : repository.name;
     title.append(link);
 
     const description = document.createElement("p");
-    description.textContent = repository.description || "No description provided yet.";
+    const providedDescription = typeof repository.description === "string"
+        ? repository.description.trim()
+        : "";
+    description.textContent = providedDescription || (assignment
+        ? "Source code and documentation for this portfolio coursework."
+        : "Explore the source code and README on GitHub.");
     const language = document.createElement("p");
-    language.className = "muted";
-    language.textContent = `Main language: ${repository.language || "Not specified"}`;
+    language.className = "muted repositoryLanguage";
+    language.textContent = repository.language || "Repository";
     // textContent treats external descriptions as text rather than executable HTML.
     card.append(title, description, language);
     return card;

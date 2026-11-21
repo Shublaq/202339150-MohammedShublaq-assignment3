@@ -15,7 +15,7 @@
 
     <!-- Header containing the navigation and introduction -->
     <header id="home">
-        <nav>
+        <nav aria-label="Main navigation">
             <a href="#home">Mohammed Shublaq</a>
             <ul>
                 <li>
@@ -34,7 +34,12 @@
                     <a href="#contact">Contact</a>
                 </li>
             </ul>
-            <button id="themeToggle" type="button" aria-pressed="false" hidden>Dark mode</button>
+            <button id="themeToggle" class="themeSwitch" type="button" role="switch"
+                aria-checked="false" aria-label="Dark theme" title="Switch to dark theme" hidden>
+                <span class="themeLabel" aria-hidden="true">Theme</span>
+                <span class="themeTrack" aria-hidden="true"><span class="themeThumb"></span></span>
+                <span id="themeState" class="themeState" aria-hidden="true">Light</span>
+            </button>
         </nav>
 
         <div class="intro">
@@ -144,7 +149,7 @@
         <!-- Public GitHub data loads independently of the featured projects. -->
         <section id="github" class="pageSection" aria-labelledby="githubHeading">
             <h2 id="githubHeading">Recent GitHub Repositories</h2>
-            <p>Explore six of my most recently updated public repositories.</p>
+            <p>A live look at my recent public work, including portfolio assignments and other projects.</p>
             <p><a class="textLink" href="https://github.com/Shublaq?tab=repositories">View all my repositories on GitHub</a></p>
             <p id="githubStatus" class="muted" role="status" aria-atomic="true"></p>
             <button id="githubRetry" type="button" class="primaryButton" hidden>Retry loading repositories</button>

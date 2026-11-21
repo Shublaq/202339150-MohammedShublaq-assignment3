@@ -25,9 +25,15 @@ There are two featured projects, so a category containing one project has no vis
 
 `theme.js` is a small local script loaded before the stylesheet. It accepts only `light` or `dark` from the `portfolio-theme` localStorage key; otherwise it follows `prefers-color-scheme`. The theme is applied through `data-theme` on the root HTML element.
 
-The main script toggles `state.theme`, updates the root and button's `aria-pressed`, and saves the preference. Storage reads and writes are protected with try/catch. When storage is blocked, the toggle still works for the current visit. Filtering and sorting are session state and reset on reload. The device preference is read at initial load; later device changes apply on the next load unless the visitor saved an explicit choice.
+The main script toggles `state.theme`, updates the root and switch's `aria-checked`, updates the visible Light/Dark label and next-action tooltip, and saves the preference. The native button uses `role="switch"` with the stable accessible name Dark theme; the checked state means dark theme is active. Its track and moving thumb communicate the state visually. Storage reads and writes are protected with try/catch. When storage is blocked, the toggle still works for the current visit. Filtering and sorting are session state and reset on reload. The device preference is read at initial load; later device changes apply on the next load unless the visitor saved an explicit choice.
 
-CSS variables control page, cards, fields, headings, links, badges, and feedback colors. The navigation and footer keep their existing dark background in either theme.
+CSS variables control page, cards, fields, headings, links, badges, and feedback colors. Dedicated `--hero-bg` / `--hero-text` tokens keep the navigation, hero, and footer dark with white text in both themes. Dedicated `--button-bg`, `--button-hover`, and `--button-text` tokens keep filled buttons and selected filters readable. The pale dark-theme link color is used for links, never as a filled-button background. Form/select boundary colors also have a separate token.
+
+### Reported contrast defect and correction
+
+The initial Assignment 3 CSS incorrectly reused `--heading` for header/footer backgrounds, which became nearly white in dark mode. It also reused `--link` as a button background, making white button labels difficult to see. The user reported these problems with screenshots; filtering and sorting were confirmed working. The follow-up separates those color roles and replaces the static-looking theme button with the switch described above.
+
+Forty-eight automated color combinations were checked across the two themes: 46 text/surface combinations meet at least 4.5:1 (minimum measured 5.17:1), and two form/select boundary combinations meet at least 3:1. Hero checks include sampled positions from the gradient's transparent endpoint through its maximum overlay opacity. These mathematical checks use the CSS declarations; they do not establish a complete accessibility audit or browser rendering result.
 
 ## GitHub integration
 
@@ -52,7 +58,9 @@ Reference: [GitHub documentation: List repositories for a user](https://docs.git
 7. On errors, display friendly guidance and restore Retry. HTTP 403/429 receive request-limit guidance.
 8. In `finally`, clear the timeout, clear the loading guard, enable Retry, and reset busy state.
 
-Each card displays name, description, language, and a repository link. Missing descriptions and languages receive explicit fallback text. External text is inserted using `textContent`, never `innerHTML`. Links must use the HTTPS GitHub origin and a `/Shublaq/` path. No credentials, secrets, or API keys are embedded.
+Each card displays a readable title, description, language, and its real repository link. Names matching this student's portfolio assignment naming convention are displayed as Portfolio — Assignment N. API-provided descriptions take priority after trimming whitespace; a missing assignment description gets a portfolio coursework summary, while other repositories receive a prompt to explore their source and README. A missing language uses Repository as a neutral label. These display fallbacks do not change repository metadata.
+
+The requirement is meaningful external API data, so the existing public assignments are sufficient. Lab repositories and additional projects can appear if the student independently chooses to publish them; making them public is not necessary for this feature. There is no requirement for six results or for every GitHub repository to have a custom description. External text is inserted using `textContent`, never `innerHTML`. Links must use the HTTPS GitHub origin and a `/Shublaq/` path. No credentials, secrets, or API keys are embedded.
 
 Requests happen once per page load or explicit retry; there is no polling or persistent data cache. Unauthenticated GitHub request limits and connection failures can affect this section. The rest of the page operates independently.
 

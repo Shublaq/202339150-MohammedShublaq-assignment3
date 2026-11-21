@@ -11,6 +11,15 @@
 - [x] Retry recovers without duplicate cards; no more than six cards appear; external descriptions remain text.
 - [x] The actual API endpoint returned HTTP 200 with three repositories at test time.
 
+## Follow-up checks after the theme fix — 2026-11-21
+
+- [x] User confirmed project filtering and sorting work in the initial version.
+- [x] User reported unreadable dark-theme header text and an unclear theme button; fixed through dedicated color roles and a stateful switch.
+- [x] Re-ran 32 updated DOM checks successfully after the fix.
+- [x] Checked 48 theme contrast combinations; the 46 text combinations have a minimum calculated contrast of 5.17:1 and both form/select boundary combinations meet 3:1.
+- [x] Checked switch role, accessible name, checked state, visible Light/Dark label, next-action tooltip, and readable API assignment titles.
+- [ ] User visually verifies the revised header, footer, selected filters, primary buttons, form fields, and switch in both themes.
+
 ## Complete personally in a browser
 
 Use VS Code Live Server or a local Python server. Record actual results below. Do not mark checks passed before doing them.
@@ -18,7 +27,7 @@ Use VS Code Live Server or a local Python server. Record actual results below. D
 - [ ] Load the site and confirm both images display clearly.
 - [ ] Choose All and sort A–Z: Hub should appear before Room Booking. Choose Z–A: reverse order.
 - [ ] Choose Java, change sorting, then choose All: only Java appears while filtered, and the selected sorting is preserved afterward.
-- [ ] Toggle Dark mode, reload, and verify the preference persists. Toggle back and reload again.
+- [ ] Use the Theme switch, check its Light/Dark label and thumb, reload, and verify the preference persists. Toggle back and reload again.
 - [ ] Inspect headings, links, fields, selected buttons, and success/error feedback in both themes.
 - [ ] Confirm live GitHub repositories and their links load correctly.
 - [ ] In DevTools Network request blocking, block `*api.github.com*`, reload, and check the error message. Unblock, then select Retry and confirm recovery. Request blocking is preferable to full offline mode because the local page must still load.
@@ -32,7 +41,8 @@ Use VS Code Live Server or a local Python server. Record actual results below. D
 | Check | Actual browser / viewport / mode | Result / notes |
 |---|---|---|
 | Layout and images | Pending | Pending |
-| Filters, sorting, keyboard | Pending | Pending |
+| Filters and sorting | User browser, initial version | User confirmed passed; recheck after refinement |
+| Keyboard navigation | Pending | Pending |
 | Theme and reload | Pending | Pending |
 | Live API and recovery | Pending | Pending |
 | Contact validation | Pending | Pending |
