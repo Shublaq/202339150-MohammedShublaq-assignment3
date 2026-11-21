@@ -1,214 +1,112 @@
-# Technical Documentation
+# Technical Documentation — Assignment 3
 
-## Project Overview
+## Scope and files
 
-This project is a responsive personal portfolio built with HTML, CSS, and JavaScript. It presents my background, skills, two projects, and contact information.
+This static portfolio extends Assignment 2. Semantic HTML, the original personal content, featured projects, greeting, form validation, and responsive layout are retained. No application framework or backend was added.
 
-Assignment 2 builds on Assignment 1 by adding interactive project filtering, contact-form validation, clear user feedback, and smooth button transitions. Visual improvements include a shorter introduction, a subtle background glow, and project interface images.
-
-## Project Files
-
-| File or folder | Purpose |
+| File | Responsibility |
 |---|---|
-| `index.html` | Defines the page structure, portfolio content, project filters, images, and contact form. |
-| `css/styles.css` | Controls colors, spacing, responsive layouts, image presentation, button transitions, and feedback styling. |
-| `js/script.js` | Implements the time-based greeting, project filtering, form validation, and user feedback. |
-| `assets/images/` | Stores project interface previews and retained placeholder assets. |
-| `docs/ai-usage-report.md` | Documents AI assistance, the Usage Log, and the declaration. |
-| `docs/technical-documentation.md` | Explains implementation decisions, testing, debugging, and limitations. |
-| `.gitignore` | Excludes local settings and other unnecessary files from version control. |
+| `index.html` | Sections, filter and sort controls, theme toggle, API status and fallback link, and contact form |
+| `css/styles.css` | Theme variables, responsive grids, focus styles, reduced motion, and feedback colors |
+| `js/theme.js` | Read the stored theme and apply it before the stylesheet loads |
+| `js/script.js` | Greeting, shared state, filtering/sorting, theme interaction, asynchronous API loading, and validation |
+| `assets/images/*.webp` | Compressed project previews |
+| `docs/testing-checklist.md` | Actual verification status and remaining manual checks |
 
-## HTML Structure
+## Filtering and sorting
 
-The page uses semantic HTML elements, including `header`, `nav`, `main`, `section`, `article`, and `footer`.
+The `state` object stores the active category, sort option, and theme. `projectCards` retains the original card order. Each render copies this array, optionally sorts the copy using `localeCompare`, applies the active category to each card's `hidden` property, and appends the ordered cards through a document fragment.
 
-The main content contains About Me, Projects, and Contact sections. Navigation links reference section IDs so visitors can move directly to the relevant content.
+Filter handlers update only the category. The select handler updates only the sort value. Both call `renderProjects()`, so changing one control preserves the other. Featured order uses the original array. The selected filter's `aria-pressed` state and visible project count are updated together. An explicit `[hidden]` CSS rule prevents display styling from overriding hidden elements.
 
-Each project card contains an interface image, a title, and a description. Its `data-category` attribute identifies the project category used by the filtering feature.
+There are two featured projects, so a category containing one project has no visible sorting difference. Check sorting with All selected, then check that it remains selected while changing categories.
 
-The contact form contains Name, Email, and Message fields. Each field has an associated label and is required. The email field uses `type="email"` for browser email-format validation.
+## Theme state
 
-The stylesheet is linked in the document head. The JavaScript file uses `defer`, allowing the HTML to be parsed before the script runs.
+`theme.js` is a small local script loaded before the stylesheet. It accepts only `light` or `dark` from the `portfolio-theme` localStorage key; otherwise it follows `prefers-color-scheme`. The theme is applied through `data-theme` on the root HTML element.
 
-## CSS and Responsive Design
+The main script toggles `state.theme`, updates the root and switch's `aria-checked`, updates the visible Light/Dark label and next-action tooltip, and saves the preference. The native button uses `role="switch"` with the stable accessible name Dark theme; the checked state means dark theme is active. Its track and moving thumb communicate the state visually. Storage reads and writes are protected with try/catch. When storage is blocked, the toggle still works for the current visit. Filtering and sorting are session state and reset on reload. The device preference is read at initial load; later device changes apply on the next load unless the visitor saved an explicit choice.
 
-Flexbox arranges the navigation, skills, and filter buttons. CSS Grid displays the project cards in two columns on larger screens.
+CSS variables control page, cards, fields, headings, links, badges, and feedback colors. Dedicated `--hero-bg` / `--hero-text` tokens keep the navigation, hero, and footer dark with white text in both themes. Dedicated `--button-bg`, `--button-hover`, and `--button-text` tokens keep filled buttons and selected filters readable. The pale dark-theme link color is used for links, never as a filled-button background. Form/select boundary colors also have a separate token.
 
-At viewport widths of 900px or less, the project grid changes to one column. At 600px or less, the navigation stacks vertically, heading sizes decrease, and spacing adjusts for smaller screens. Filter buttons can wrap onto additional rows.
+### Reported contrast defect and correction
 
-The introduction sizes itself around its content instead of occupying a full screen. Padding provides spacing, and a radial gradient adds a subtle blue glow to the navy background.
+The initial Assignment 3 CSS incorrectly reused `--heading` for header/footer backgrounds, which became nearly white in dark mode. It also reused `--link` as a button background, making white button labels difficult to see. The user reported these problems with screenshots; filtering and sorting were confirmed working. The follow-up separates those color roles and replaces the static-looking theme button with the switch described above.
 
-### Button States and Transitions
+Forty-eight automated color combinations were checked across the two themes: 46 text/surface combinations meet at least 4.5:1 (minimum measured 5.17:1), and two form/select boundary combinations meet at least 3:1. Hero checks include sampled positions from the gradient's transparent endpoint through its maximum overlay opacity. These mathematical checks use the CSS declarations; they do not establish a complete accessibility audit or browser rendering result.
 
-Filter buttons have distinct hover, selected, and keyboard-focus styles.
+## GitHub integration
 
-The selector `.filterButton[aria-pressed="true"]` gives the selected filter a blue background and white text. The `:focus-visible` selector provides a dark outline so keyboard users can identify the focused button.
+Endpoint:
 
-Background and text colors transition over 0.2 seconds when their values change. This provides a smooth visual response to interaction.
-
-### Project Images
-
-The project cards display a Room Booking System interface preview and a KFUPM Hub student login screen exported from Figma.
-
-Both image areas use `aspect-ratio: 3 / 2` for consistent presentation. `object-fit: contain` keeps each complete image visible without stretching or cropping it. A background color fills any remaining space.
-
-The HTML includes descriptive alternative text, image dimensions, and `loading="lazy"`.
-
-## Time-Based Greeting
-
-JavaScript selects the greeting paragraph and obtains the current hour from the visitor’s device using `new Date().getHours()`.
-
-Conditional statements display:
-
-- A morning greeting before 12:00.
-- An afternoon greeting from 12:00 until before 18:00.
-- An evening greeting from 18:00 onward.
-
-The greeting is calculated when the page loads.
-
-## Project Filtering
-
-### Purpose and Controls
-
-Visitors can filter projects without reloading the page:
-
-- **All:** displays both projects and is selected initially.
-- **Java:** displays the KFUPM Room Booking System.
-- **UI/UX:** displays KFUPM Hub.
-
-### Implementation
-
-Each filter button has a `data-filter` value: `all`, `java`, or `design`. Each project card has a corresponding `data-category` value.
-
-JavaScript uses `querySelectorAll()` to select the buttons and cards. A `forEach()` loop attaches a click event listener to each button.
-
-When a button is activated, the handler:
-
-1. Reads its filter value using `button.dataset.filter`.
-2. Sets all filter buttons’ `aria-pressed` attributes to `false`.
-3. Sets the activated button’s `aria-pressed` attribute to `true`.
-4. Updates each project card’s `hidden` property.
-
-The hiding condition is:
-
-```javascript
-project.hidden =
-    selectedFilter !== "all" &&
-    project.dataset.category !== selectedFilter;
+```text
+GET https://api.github.com/users/Shublaq/repos?sort=updated&per_page=6&type=owner
 ```
 
-A card is hidden only when the selected filter is not All and its category does not match. Selecting All makes this condition false for both cards, showing them again.
+This fetches public repositories for Shublaq, ordered by update time, with up to six results. It is separate from the curated featured projects. The permanent profile link lets visitors see all repositories or continue if the API fails.
 
-### Accessibility
+Reference: [GitHub documentation: List repositories for a user](https://docs.github.com/en/rest/repos/repos#list-repositories-for-a-user).
 
-The controls use native buttons that support keyboard navigation and activation with Enter or Space.
+`loadRepositories()` uses async/await and handles the full request lifecycle:
 
-The container uses `role="group"` and `aria-label="Filter projects"` to identify the related controls. The `aria-pressed` attributes communicate the selected filter to assistive technology, while visible styling communicates it visually.
+1. Guard against simultaneous requests, announce loading, hide and disable Retry, and set `aria-busy`.
+2. Start a ten-second AbortController timeout.
+3. Fetch data, reject unsuccessful HTTP status codes, and parse JSON.
+4. Validate that the result is an array with repository names and links.
+5. Build at most six cards in a document fragment, then replace the results together.
+6. Announce success or an empty result.
+7. On errors, display friendly guidance and restore Retry. HTTP 403/429 receive request-limit guidance.
+8. In `finally`, clear the timeout, clear the loading guard, enable Retry, and reset busy state.
 
-## Contact Form Validation and Feedback
+Each card displays a readable title, description, language, and its real repository link. Names matching this student's portfolio assignment naming convention are displayed as Portfolio — Assignment N. API-provided descriptions take priority after trimming whitespace; a missing assignment description gets a portfolio coursework summary, while other repositories receive a prompt to explore their source and README. A missing language uses Repository as a neutral label. These display fallbacks do not change repository metadata.
 
-### Validation Process
+The requirement is meaningful external API data, so the existing public assignments are sufficient. Lab repositories and additional projects can appear if the student independently chooses to publish them; making them public is not necessary for this feature. There is no requirement for six results or for every GitHub repository to have a custom description. External text is inserted using `textContent`, never `innerHTML`. Links must use the HTTPS GitHub origin and a `/Shublaq/` path. No credentials, secrets, or API keys are embedded.
 
-JavaScript intercepts the form’s submit event and calls `event.preventDefault()` to prevent normal submission and page reload.
+Requests happen once per page load or explicit retry; there is no polling or persistent data cache. Unauthenticated GitHub request limits and connection failures can affect this section. The rest of the page operates independently.
 
-The script sets `contactForm.noValidate = true` so its submit handler controls when browser validation runs. The HTML validation rules remain available through the browser’s validation API.
+## Contact form and greeting
 
-Before checking validity, the script applies `trim()` to each field. This removes leading and trailing whitespace and prevents spaces-only names or messages from satisfying the required-field rules.
+The greeting uses the device's current hour on page load. The existing contact form intercepts submit, trims all fields, checks native required/email constraints, reports invalid entries, and otherwise announces that the valid form is a demo. Input clears stale feedback. This is client-side validation only; there is no message-delivery backend.
 
-The handler then calls `checkValidity()` to check required fields and email format.
+## Performance changes
 
-### Invalid Entries
+| Image | Assignment 2 PNG | Assignment 3 WebP |
+|---|---:|---:|
+| Room Booking | 94,600 bytes | 37,712 bytes |
+| KFUPM Hub | 73,778 bytes | 29,002 bytes |
+| Total | 168,378 bytes | 66,714 bytes |
 
-When validation fails:
+The displayed images use approximately 60.4% fewer bytes. The originals and unused SVG placeholders were removed from the current tree after checking references; earlier Git commits retain them. WebP conversion used quality 90 without resizing. Image dimensions and lazy loading are retained.
 
-1. An explanatory error message appears in the feedback paragraph.
-2. Its `data-state` is set to `error`, selecting dark red styling.
-3. `reportValidity()` displays the browser’s validation guidance and directs attention to an invalid field.
-4. `return` stops the handler before the confirmation message.
+The app loads no frameworks or third-party font libraries. The main script uses `defer`. DOM references are reused, and fragments batch card insertion. Reduced-motion preferences disable smooth scrolling and filter transitions. Image savings are measured file sizes, not a claimed Lighthouse result.
 
-### Valid Entries
+## Verification and limits
 
-When validation succeeds, the form displays:
+On 2026-11-21, both JavaScript files passed Node syntax checks. Thirty-two automated jsdom checks passed for filtering/sorting, theme state, storage failure, form validation, loading/success/empty/error/retry/timeout cases, invalid API data, safe text rendering, and the six-card limit. The actual GitHub endpoint independently returned HTTP 200 and three repositories at that time.
 
-> Your entries are valid. This demo does not send messages.
+These automated checks simulate a DOM; they are not browser compatibility, rendering, keyboard, screen-reader, or Lighthouse tests. A local Chromium launch failed due to execution-environment restrictions. At that stage, no browser rendering or performance score was claimed. The inherited Assignment 2 Chrome results do not establish results for this version. The later student-run checks below provide the browser-test evidence for this version.
 
-The feedback’s `data-state` becomes `success`, selecting dark green styling. The form does not send or store the entries.
+## User Lighthouse report and startup correction
 
-An input event listener clears outdated feedback whenever the visitor edits a field.
+The user supplied a Chrome Lighthouse 13.5.0 Mobile report, captured on 2026-11-21 at 21:50 GMT+3, using an emulated Moto G Power and Slow 4G throttling on localhost. Results before the startup correction were Performance 91, Accessibility 100, Best Practices 96, SEO 100, FCP 1.0s, LCP 1.1s, TBT 0ms, Speed Index 1.0s, and CLS 0.193.
 
-### Feedback Accessibility
+The expanded diagnostics identified a missing `/favicon.ico` request (404) and the entire `<main>` as the shifted element. A shifted element identifies the affected content, not necessarily the cause. Source inspection showed that the theme switch was hidden until the deferred script ran; revealing it could enlarge the mobile header and move main. The sorting row and count also appeared after initial parsing.
 
-The feedback paragraph uses `role="status"` and `aria-atomic="true"` to support announcements of the complete message by screen readers.
+The correction renders the switch and sorting row in normal flow from initial HTML, keeps their controls disabled until JavaScript initializes them, and supplies the initial project count in HTML. JavaScript enables these controls instead of revealing them, keeping their geometry present from first render. The CSS styling fixes their control dimensions. An explicit `assets/favicon.svg` link supplies a real favicon resource.
 
-Messages explain the outcome in words as well as using color. Actual screen-reader behavior has not been independently verified.
+Reference: [web.dev: Optimize Cumulative Layout Shift](https://web.dev/articles/optimize-cls).
 
-## Performance Considerations
+The functional and color checks still passed, and six additional startup/asset checks passed. The student then reran Mobile Lighthouse and reported 100 in all four categories. The final numeric CLS was not supplied, so the earlier 0.193 remains identified only as the initial measurement. No replacement CLS or timing values are estimated.
 
-The website uses local HTML, CSS, JavaScript, and image files without a framework or external API dependency.
+## Final student verification
 
-The script selects filter buttons and project cards once, then reuses those references during interaction.
+The student confirmed that mobile layout at 320px and 768px, theme persistence across refresh, contact validation, keyboard operation, API failure/retry, and core features in another browser all passed. Filtering and sorting were also confirmed earlier. Submitted desktop screenshots show both complete themes and populated API cards. The other browser's name/version was not recorded, and a real-phone or screen-reader test is not claimed.
 
-Project images use lazy loading so the browser can defer fetching them until they approach the visible area. Their dimensions provide aspect-ratio information, and CSS controls their displayed size.
+| Lighthouse category | Initial supplied report | Final student-reported run |
+|---|---:|---:|
+| Performance | 91 | 100 |
+| Accessibility | 100 | 100 |
+| Best Practices | 96 | 100 |
+| SEO | 100 | 100 |
 
-These choices keep the implementation lightweight. No formal performance benchmark has been recorded.
-
-## Testing and Debugging
-
-### Test Environment
-
-Manual testing was performed in Google Chrome. Chrome DevTools was used to inspect viewport widths of 320px, 768px, and 1440px.
-
-The following results reflect the checks completed during development and the final Chrome test round.
-
-### Functional Checks
-
-| Check | Expected result | Result |
-|---|---|---|
-| Initial project display | All is selected and both projects appear. | Passed |
-| Select Java | Only the Room Booking System appears. | Passed |
-| Select UI/UX | Only KFUPM Hub appears. | Passed |
-| Select All after another filter | Both projects appear again. | Passed |
-| Change filter | The selected button’s styling updates. | Passed |
-| Navigate filters with Tab | A visible outline identifies the focused button. | Passed |
-| Activate filters with Enter or Space | The corresponding filter is applied. | Passed |
-| Submit empty fields | Validation feedback identifies incomplete entries. | Passed |
-| Enter spaces only in Name or Message | The entries fail required-field validation after trimming. | Passed |
-| Enter an invalid email address | Validation fails and error guidance appears. | Passed |
-| Submit valid entries | A confirmation appears without page reload. | Passed |
-| Edit a field after feedback appears | Previous feedback clears. | Passed |
-| Display error and confirmation feedback | Appropriate text and colors appear. | Passed |
-| Load project images | Both images display without stretching. | Passed |
-| Activate navigation links | The page moves to the corresponding sections. | Passed |
-| Hover over an unselected filter | Button colors transition smoothly. | Passed |
-
-### Responsive Checks
-
-At 320px, 768px, and 1440px, the layout was checked for horizontal scrolling, overlapping text, distorted images, and controls extending outside the page.
-
-All checks passed in Chrome. No failures were observed during the final test round. Other browsers have not yet been tested.
-
-### Resolved Filtering Bug
-
-Initially, `data-category="java"` was placed on the `projectsGrid` container instead of the Room Booking System’s `article` element.
-
-The script reads the category from each `.projectCard`. Because the Java card had no category attribute, it disappeared when Java was selected.
-
-Moving the attribute to the correct `article` element fixed the issue. The filters were then retested successfully.
-
-## Running and Using the Website
-
-Open `index.html` in a modern browser. No package installation, build process, or backend setup is required.
-
-Keep the folder structure unchanged so relative paths to stylesheets, scripts, and images remain valid.
-
-Use the navigation links to move between sections. Use the project buttons to filter cards. Complete the contact fields to try validation and feedback. Use the email link for actual contact.
-
-## Current Limitations
-
-- The contact form is a local demonstration with no backend, storage, or message-delivery service.
-- Email-format validation does not verify that an email address exists.
-- Project information and categories are maintained manually in HTML.
-- The selected filter resets to All when the page reloads.
-- Filtering and custom form feedback require JavaScript.
-- Compatibility has been tested in Chrome only.
-- Screen-reader behavior and formal performance metrics have not been independently tested.
+The original report and diagnostic screenshots identify the tested issues. The final scores and remaining manual test results are recorded from the student's confirmation in C01. These results have not been independently reproduced in the agent's restricted browser environment.

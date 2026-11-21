@@ -1,109 +1,86 @@
-# Personal Portfolio - Assignment 2
+# Personal Portfolio — Assignment 3
 
-A responsive personal portfolio built with HTML, CSS, and JavaScript for the Web Engineering course at KFUPM.
-
-This assignment extends my Assignment 1 portfolio with interactive project filtering, contact-form validation, user feedback, and smooth button transitions. It also improves the introduction layout and replaces project placeholder images with interface previews.
+A responsive HTML, CSS, and JavaScript portfolio by Mohammed Shublaq (202339150), developed for Web Engineering at KFUPM. This project builds on Assignments 1 and 2.
 
 ## Features
 
-- About Me section with my background, interests, and skills.
-- Two project cards presenting the KFUPM Room Booking System and KFUPM Hub.
-- Project filtering using All, Java, and UI/UX buttons.
-- Contact-form validation for required fields and email format.
-- Removal of surrounding whitespace before validating form entries.
-- Clear error and confirmation messages that reset when fields are edited.
-- Keyboard-accessible filter buttons with visible focus indicators.
-- Smooth color transitions on filter buttons.
-- Responsive layouts for desktop, tablet, and mobile screens.
-- A greeting based on the visitor’s local time.
+- About Me, skills, and two featured projects: KFUPM Room Booking System and KFUPM Hub.
+- Combined project filtering (All / Java / UI/UX) and sorting (Featured / Title A–Z / Title Z–A).
+- A project count and keyboard-accessible controls with visible focus indicators.
+- Recent public GitHub repositories, fetched from GitHub with loading, empty, error, retry, and timeout handling.
+- Light/dark theme, restored from browser storage on later visits. First visits follow the device preference.
+- Time-based greeting and a responsive layout.
+- A contact-form demonstration that validates required fields, trimmed input, and email format.
+- Compressed WebP project images with lazy loading and explicit dimensions.
 
-## Technologies Used
+**The contact form does not send or store messages.** Use the email link for actual contact.
 
-- HTML for page structure and content.
-- CSS, Flexbox, Grid, and media queries for styling and responsive layouts.
-- JavaScript for the greeting, filtering, validation, and feedback.
-- Git and GitHub for version control.
+## Run locally
 
-No frameworks, external APIs, or package dependencies are required.
+No framework, API key, package installation, build process, or backend is needed for the portfolio.
 
-## Project Structure
+1. Select **Code → Download ZIP** on GitHub and extract it, or clone:
+
+   ```bash
+   git clone https://github.com/Shublaq/202339150-MohammedShublaq-assignment3.git
+   cd 202339150-MohammedShublaq-assignment3
+   ```
+
+2. Open the folder in VS Code.
+3. Start a local server using **Live Server → Go Live**. Alternatively, if Python is installed:
+
+   ```bash
+   python -m http.server 8000
+   ```
+
+4. Open `http://localhost:8000` for the Python option. Live Server opens its own address.
+5. Keep the same address when testing saved preferences: browser storage is scoped to the origin.
+
+An internet connection is required for the GitHub section. The rest of the portfolio remains usable if GitHub is unavailable. Opening `index.html` directly may work, but use a local HTTP server for consistent fetch and storage testing.
+
+## Using the features
+
+- Choose a project category, then a sorting option. Both apply together; **All** retains the selected sorting. **Featured order** restores the original card order.
+- Use the **Theme** switch in the navigation. The visible Light/Dark label and moving thumb show the current state; screen readers receive the matching switch state. Reload to check persistence.
+- The GitHub section shows up to six real public repositories ordered by their latest update. Existing portfolio assignments are valid content; lab repositories are optional. Assignment names receive readable titles, and missing descriptions receive a useful fallback. A repository description on GitHub is helpful but not required for this feature. Follow a repository title to open it. If loading fails, use **Retry loading repositories** or the permanent profile link.
+- Enter a name, email, and message to try contact validation. Successful validation is explicitly a demo, without message delivery.
+- Use Tab to navigate; native buttons support Enter/Space. A native select supports arrow keys.
+
+## Structure
 
 ```text
-202339150-MohammedShublaq-assignment2/
+202339150-MohammedShublaq-assignment3/
 ├── README.md
 ├── index.html
-├── css/
-│   └── styles.css
+├── css/styles.css
 ├── js/
+│   ├── theme.js
 │   └── script.js
 ├── assets/
+│   ├── favicon.svg
 │   └── images/
-│       ├── room-booking.png
-│       └── kfupm-hub.png
+│       ├── room-booking.webp
+│       └── kfupm-hub.webp
 ├── docs/
 │   ├── ai-usage-report.md
-│   └── technical-documentation.md
+│   ├── assignment2-ai-usage-report.md
+│   ├── technical-documentation.md
+│   └── testing-checklist.md
 └── .gitignore
 ```
 
-## Running Locally
+## Testing
 
-### Download the project
+The student confirmed that filtering/sorting, mobile layouts at 320px and 768px, theme persistence, contact validation, keyboard operation, API failure/retry, and core features in another browser passed. Full-page screenshots show the desktop layout and both themes. The additional browser's name/version was not recorded; a real-phone test is not claimed.
 
-1. On this repository’s GitHub page, select **Code → Download ZIP**.
-2. Extract the ZIP.
-3. Open `index.html` in a modern web browser.
+After the startup/favicon correction, the student reported **100 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO** in Mobile Lighthouse. The original supplied report scored 91/100/96/100 with CLS 0.193. The final numerical CLS and other metrics were not supplied and are not estimated. Lighthouse scores describe the tested run, not a guarantee across every device or an exhaustive accessibility audit.
 
-Alternatively, clone the repository:
+Agent-run verification includes JavaScript syntax checks, local references, 32 functional DOM checks, 48 color combinations, and six startup/asset checks. See [Testing Checklist](docs/testing-checklist.md) and [Technical Documentation](docs/technical-documentation.md) for scope and results.
 
-```bash
-git clone https://github.com/Shublaq/202339150-MohammedShublaq-assignment2.git
-```
+## AI assistance and inherited work
 
-Open the downloaded project folder and then open `index.html`.
+ChatGPT assisted with planning, implementation, debugging, checks, and documentation. See the [Assignment 3 AI Usage Report](docs/ai-usage-report.md). The report distinguishes AI-produced implementation, student review and test feedback, and agent-run checks. Complete conversations and original outputs are provided in the separate evidence ZIP, not the public repository.
 
-No installation, build command, or backend server is required. Keep the folder structure unchanged so the stylesheet, script, and images load correctly.
+Assignment 2's report is preserved separately in [Assignment 2 AI Usage Report](docs/assignment2-ai-usage-report.md). Complete conversations and original AI artifacts belong in the separate Blackboard evidence ZIP, not this repository.
 
-## Using the Website
-
-### Navigation
-
-Use About, Projects, and Contact in the navigation bar to move between sections.
-
-### Project filtering
-
-- **All:** shows both projects.
-- **Java:** shows the KFUPM Room Booking System.
-- **UI/UX:** shows KFUPM Hub.
-
-The selected filter is highlighted. Keyboard users can navigate using Tab and activate buttons using Enter or Space.
-
-### Contact form
-
-Enter a name, email address, and message, then select **Send Message**.
-
-Invalid entries produce error feedback. Valid entries produce a confirmation message. Editing a field clears the previous feedback.
-
-**The form is a demonstration: it validates entries locally but does not send, store, or email messages.** Use the email link in the Contact section to contact me.
-
-## Limitations
-
-- There is no backend or message-delivery service.
-- The selected project filter resets to All when the page reloads.
-- Filtering and custom form feedback require JavaScript.
-- Project information and categories are maintained manually in the HTML.
-
-## AI Assistance
-
-ChatGPT assisted with interpreting requirements, explaining code, suggesting HTML, CSS, and JavaScript, debugging, reviewing accessibility, and drafting documentation.
-
-The [AI Usage Report](docs/ai-usage-report.md) records the assistance, adaptations, verification, and declaration. Complete conversations and intermediate AI artifacts are submitted separately in the AI Evidence ZIP on Blackboard.
-
-## Technical Documentation
-
-See [Technical Documentation](docs/technical-documentation.md) for implementation explanations, testing details, and debugging notes.
-
-## Author
-
-Mohammed Shublaq  
-Student ID: 202339150
+See [Technical Documentation](docs/technical-documentation.md) for application logic, state, API behavior, performance changes, and limitations.

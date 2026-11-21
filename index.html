@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mohammed Shublaq's software engineering portfolio: Java projects, interface design, and recent GitHub repositories.">
     <title>Mohammed Shublaq | Portfolio</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/script.js" defer></script>
 </head>
@@ -13,7 +16,7 @@
 
     <!-- Header containing the navigation and introduction -->
     <header id="home">
-        <nav>
+        <nav aria-label="Main navigation">
             <a href="#home">Mohammed Shublaq</a>
             <ul>
                 <li>
@@ -25,9 +28,19 @@
                 </li>
 
                 <li>
+                    <a href="#github">GitHub</a>
+                </li>
+
+                <li>
                     <a href="#contact">Contact</a>
                 </li>
             </ul>
+            <button id="themeToggle" class="themeSwitch" type="button" role="switch"
+                aria-checked="false" aria-label="Dark theme" title="Switch to dark theme" disabled>
+                <span class="themeLabel" aria-hidden="true">Theme</span>
+                <span class="themeTrack" aria-hidden="true"><span class="themeThumb"></span></span>
+                <span id="themeState" class="themeState" aria-hidden="true">Light</span>
+            </button>
         </nav>
 
         <div class="intro">
@@ -83,10 +96,20 @@
                 </button>
             </div>
 
-            <div class="projectsGrid">
+            <div class="projectSort">
+                <label for="projectSort">Sort projects</label>
+                <select id="projectSort" disabled>
+                    <option value="featured">Featured order</option>
+                    <option value="az">Title: A–Z</option>
+                    <option value="za">Title: Z–A</option>
+                </select>
+            </div>
+            <p id="projectCount" class="muted" role="status" aria-atomic="true">2 of 2 projects shown.</p>
+
+            <div id="projectsGrid" class="projectsGrid">
                 <article class="projectCard" data-category="java">
                 <img
-                    src="assets/images/room-booking.png"
+                    src="assets/images/room-booking.webp"
                     alt="Room booking user interface with search fields, available rooms, and reservations"
                     width="1800"
                     height="1200"
@@ -104,7 +127,7 @@
 
                 <article class="projectCard" data-category="design">
                 <img
-                    src="assets/images/kfupm-hub.png"
+                    src="assets/images/kfupm-hub.webp"
                     alt="KFUPM Hub prototype student login screen with a welcome panel and university logo"
                     width="1250"
                     height="670"
@@ -122,6 +145,17 @@
                     </p>
                 </article>
             </div>
+        </section>
+
+        <!-- Public GitHub data loads independently of the featured projects. -->
+        <section id="github" class="pageSection" aria-labelledby="githubHeading">
+            <h2 id="githubHeading">Recent GitHub Repositories</h2>
+            <p>A live look at my recent public work, including portfolio assignments and other projects.</p>
+            <p><a class="textLink" href="https://github.com/Shublaq?tab=repositories">View all my repositories on GitHub</a></p>
+            <p id="githubStatus" class="muted" role="status" aria-atomic="true"></p>
+            <button id="githubRetry" type="button" class="primaryButton" hidden>Retry loading repositories</button>
+            <div id="githubRepos" class="repositoriesGrid" aria-busy="false"></div>
+            <noscript>Enable JavaScript to load recent repositories, or use the GitHub link above.</noscript>
         </section>
 
         <!-- Contact information and form -->

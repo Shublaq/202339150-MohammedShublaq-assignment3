@@ -1,134 +1,95 @@
-# AI Usage Report — Assignment 2
+# AI Usage Report — Assignment 3
 
-## Tools Used and Use Cases
+Name: Mohammed Shublaq
 
-### ChatGPT
+Student ID: 202339150
 
-I used ChatGPT to help extend my Assignment 1 portfolio for Assignment 2. Its assistance included interpreting requirements, reviewing previous feedback, planning the work, explaining concepts, generating initial HTML, CSS, and JavaScript snippets, debugging, and reviewing the implementation.
+Date: 2026-11-21 (Asia/Riyadh)
 
-ChatGPT also drafted the README and technical documentation and helped organize this AI usage report. I was responsible for reviewing the suggestions, choosing changes, applying them to my project, and testing the resulting behavior.
+## Tools used and use cases
 
-The assistance covered:
+I used ChatGPT (Codex) in one continuous conversation, C01, for Assignment 3. I confirmed that I did not use another AI chat or tool for this assignment. The exact underlying model identifier was not recorded.
 
-- Project filtering using category buttons.
-- Contact-form validation and feedback.
-- Keyboard accessibility and selected-button states.
-- Button transitions and visual improvements.
-- Project-image selection and HTML integration.
-- Git commands and repository organization.
-- Documentation drafting and review.
+ChatGPT helped interpret the requirements, review the inherited Assignment 2 project, explain repository import, implement features, diagnose issues I reported, run automated checks, and draft documentation and delivery scripts. The implementation assistance covered combined filtering/sorting, theme persistence, external GitHub data and failure recovery, WebP image conversion, startup layout stability, and a favicon.
 
-## Benefits and Challenges
+Sharp and jsdom were local image-processing and verification utilities, not additional AI services or dependencies of the portfolio website.
 
-Working step by step helped me connect the HTML structure, CSS styling, and JavaScript behavior instead of treating them as separate tasks.
+## Benefits and challenges
 
-The explanations helped me understand event listeners, custom data attributes, browser validation, and accessibility attributes. AI also helped identify a filtering bug: I had placed the Java category attribute on the grid container instead of the project card.
+AI helped connect the assignment requirements to a focused extension of my existing portfolio and helped organize implementation, verification, and documentation.
 
-A challenge was ensuring that suggestions matched my actual project and understanding them before use. I asked follow-up questions about unfamiliar code and keyboard focus behavior.
+Testing remained necessary. I found that the initial dark theme made my name and other content difficult to read and that its theme button did not communicate its state clearly. I supplied screenshots and requested consistent colors and a clearer switch. I also ran Lighthouse, supplied the report and expanded diagnostics, and requested corrections. The missing favicon and startup control changes were addressed, and I then reported perfect Lighthouse scores.
 
-Documentation also required careful checking. Some descriptions inherited from Assignment 1 became outdated after adding validation and replacing the displayed placeholder images.
+A limitation was that the agent could not launch Chromium in its environment. Its DOM and color checks did not establish real browser behavior. I performed the browser checks and confirmed the results separately.
 
-## Learning Outcomes
+## Learning outcomes
 
-This assignment helped me learn how to extend an existing website with interactive features while maintaining its structure.
+I learned how to test a website thoroughly with browser developer tools, improve consistency between light and dark themes, and save and restore theme preferences. This assignment helped me connect design refinement with functional testing and performance checks.
 
-### Project Filtering
+These outcomes reflect the learning I described in C01. The application uses browser localStorage to remember the selected theme.
 
-I learned how `querySelectorAll()` selects multiple elements and how `forEach()` processes them. Event listeners respond when visitors activate filter buttons.
+## Responsible use, decisions, and modifications
 
-The buttons store their values in `data-filter`, while cards store categories in `data-category`. JavaScript compares these values and updates each card’s `hidden` property.
+ChatGPT produced the proposed code and documentation; I do not claim that the AI-assisted implementation was written independently. I applied the updates through my own local Git/GitHub setup, tested them, identified problems, and guided revisions.
 
-I also learned that attributes on a parent container are not automatically inherited by its children. This explained why the incorrectly placed Java category caused the filtering problem.
+My review and requested changes included:
 
-### Form Validation
+- Keeping the cumulative portfolio and its existing projects.
+- Confirming that filtering and sorting worked.
+- Identifying the dark-theme contrast problem and unclear theme control, then requesting consistent styling and an explicit stateful switch.
+- Reviewing screenshots of both complete themes and the live repository section.
+- Running Lighthouse and supplying its findings, which led to the favicon and startup-space correction.
+- Confirming mobile layouts, preference persistence, contact validation, keyboard operation, API failure/retry, and core behavior in another browser.
+- Confirming that this conversation was my only AI use for Assignment 3 and supplying my learning reflection.
 
-I learned how `event.preventDefault()` prevents normal form submission and page reload.
-
-Using `trim()` removes surrounding whitespace so spaces-only names and messages do not satisfy required-field validation.
-
-`checkValidity()` checks HTML constraints, while `reportValidity()` displays the browser’s validation guidance. Setting `noValidate` lets the JavaScript handler control when these checks run.
-
-### Accessibility and Feedback
-
-I learned how visible focus outlines help keyboard users identify the current control. The `aria-pressed` attribute communicates the selected filter.
-
-The form feedback uses `role="status"` to support announcements by assistive technology. Messages explain results in words as well as through color. I did not independently test screen-reader behavior.
-
-### Testing and Version Control
-
-I used Chrome and Chrome DevTools to check functionality and responsive layouts. I also used a separate Git branch to develop the interactive features and meaningful commits to record progress.
-
-## Review, Decisions, and Modifications
-
-My decisions and changes included:
-
-- Choosing project filtering that matched the two existing portfolio projects.
-- Setting the filter-button corner radius to 15px.
-- Correcting the Java category attribute with AI debugging guidance.
-- Checking validation behavior using empty, spaces-only, invalid-email, and valid inputs.
-- Replacing displayed placeholder images with project interface previews.
-- Applying a shorter introduction and a subtle background glow.
-- Using consistent image areas while preserving complete screenshots.
-- Requesting a folder tree for the README’s project structure.
-- Keeping the form’s demonstration limitation visible.
-- Declining optional reduced-motion code and a dark-theme feature to keep the assignment focused.
+The testing record distinguishes agent checks from my reported browser results. No unperformed screen-reader or real-phone test is claimed, and no final numerical CLS value is invented.
 
 ## Verification
 
-I manually tested the website in Google Chrome. Chrome DevTools was used to inspect viewport widths of 320px, 768px, and 1440px.
+Agent checks: JavaScript syntax and local assets, 32 functional DOM checks, 48 contrast combinations, and six startup/asset checks passed. The delivered patches were checked against their baseline Git trees.
 
-The checks covered:
+I confirmed the browser checks listed in `docs/testing-checklist.md` passed. I reported 100 in all four Lighthouse categories after the fixes. The earlier supplied report was 91 Performance, 100 Accessibility, 96 Best Practices, 100 SEO, with CLS 0.193. The final detailed timings and CLS were not supplied. The additional browser's name/version was not recorded.
 
-- Initial project display and all three filters.
-- Selected-filter styling and keyboard operation.
-- Required fields, spaces-only entries, and invalid email addresses.
-- Confirmation for valid entries without page reload.
-- Clearing outdated feedback when editing fields.
-- Feedback colors and button transitions.
-- Image loading, navigation links, and responsive layouts.
+## Inherited Assignment 2 work
 
-The reported checks passed. The earlier category-attribute bug was corrected and retested.
+The repository was imported from Assignment 2 with its history. Existing personal content, project cards, greeting, category filtering, and contact validation originate in that baseline. Assignment 3 extends it.
 
-Other browsers, screen-reader behavior, and formal performance benchmarks have not been independently tested.
+The previous AI report is retained as `docs/assignment2-ai-usage-report.md`. The final evidence package preserves the original Assignment 2 evidence ZIP under `provenance/`; it documents inherited assistance and does not replace the new C01 conversation or Assignment 3 artifacts.
 
+## Usage log
 
-## Assignment 2 Usage Log
-| ID | Tool (model) | Date | Purpose | Files affected | What you changed and how you verified it |
+All new assistance took place on 2026-11-21 (Asia/Riyadh), in the continuous C01 conversation. Each artifact directory contains original AI-produced outputs before my personal edits; earlier versions and failed attempts remain in the full conversation and preserved artifacts.
+
+| ID | Tool (model) | Date | Purpose | Files affected | Changes and verification |
 |---|---|---|---|---|---|
-| C01 | ChatGPT 6.1 Sol | 2026-10-19 to 2026-10-25 | Reviewing the requirements and previous feedback, setting up Assignment 2, and planning, project filtering, form validation | docs/ai-usage-report.md, index.html, css/styles.css, js/script.js, docs/technical-documentation.md, README.md, docs/technical-documentation.md | Copied assignment 1 files into the new repository of assignment 2, created branch for interactive features. |
-| A01 | ChatGPT 6.1 Sol | 2026-10-19 | Suggest HTML for project filtering. | index.html | Added three filter buttons and category attributes to both projects. Verified that the buttons and both project cards appear in the browser. JavaScript was not implemented at this HTML-only stage. |
-| A02 | ChatGPT 6.1 Sol | 2026-10-19 | Suggest CSS for project filtering. | css/styles.css | Added styling with css to filtering buttons with border-radius set to 15px. confirmed that the styles appear in the browser. |
-| A03 | ChatGPT 6.1 Sol | 2026-10-25 | Suggest JavaScript for project filtering. | script.js | Added JavaScript functionality to filtering buttons in the projects section. Corrected the Java category attribute. Tested all buttons work as intended in the browser. |
-| A04 | ChatGPT 6.1 Sol | 2026-10-25 | Suggest HTML for improving contact form. | index.html | added HTML snippets to the index.html file. confirmed it displayed on the browser. |
-| A05 | ChatGPT 6.1 Sol | 2026-10-25 | Suggest JavaScript for form validation. | script.js | added JavaScript code to validate form info into the script.js file. Tested empty fields, spaces-only entries, invalid email, valid entries without page reload, and feedback clearing after editing. All passed in Chrome. |
-| A06 | ChatGPT 6.1 Sol | 2026-10-25 | Suggest CSS for form validation styling. | css/styles.css | added CSS styling to the form validation messages into the styles.css file. confirmed the design appears on the browser. |
-| A07 | ChatGPT 6.1 Sol | 2026-10-25 | Suggest CSS for smooth animations. | css/styles.css | added CSS smooth transitions between filtering buttons into the styles.css file. confirmed the behavior  on the browser. |
-| A08 | ChatGPT 6.1 Sol | 2026-10-25 | Suggest CSS styling for the overall design. | css/styles.css | added CSS glow effect and auto sizing into the styles.css file. confirmed the design on the browser. |
-| A09 | ChatGPT 6.1 Sol | 2026-10-25 | Assistance with changing project images. | index.html, css/styles.css | added the actual pictures for the project cards into the index.html file and styles.css file. confirmed images on the browser. |
-| A10 | ChatGPT 6.1 Sol | 2026-10-25 | Assistance with drafting README.md file. | README.md | fixed formatting issues and changed the project structure and review it |
-| A11 | ChatGPT 6.1 Sol | 2026-10-25 | Assistance with drafting technical-documentation.md file. | technical-documentation.md | confirmed relevance and review it |
-| A12 | ChatGPT 6.1 Sol | 2026-10-25 | Assistance with drafting ai-usage-report.md file. | ai-usage-report.md | changed what actually done and filled blanks and checked relevance and reviewed it |
-
+| C01 | ChatGPT (Codex; exact model not recorded) | 2026-11-21 | Requirements review, setup guidance, implementation, corrections, verification, documentation, and submission preparation | index.html, js/, css/, assets/, README.md, docs/, .gitignore; external delivery scripts | I applied the updates, tested the website, supplied screenshots and Lighthouse findings, requested corrections, confirmed browser checks, and supplied my learning reflection. Full unedited export: conversations/C01.pdf. |
+| A01 | ChatGPT (Codex) | 2026-11-21 | Generate initial Assignment 3 implementation and optimized images | index.html, js/, css/, assets/images/, .gitignore | Added filter/sort state, saved theme, API loading and recovery, and WebP images. Initial agent checks passed. Later student findings led to A04/A05 corrections. Originals: artifacts/A01-feature-implementation/. |
+| A02 | ChatGPT (Codex) | 2026-11-21 | Draft initial documentation and AI report | README.md, docs/ | Preserved the initial drafts, including their pending-review notes. Final reports reflect later student feedback and tests. Originals: artifacts/A02-documentation/. |
+| A03 | ChatGPT (Codex) | 2026-11-21 | Generate and run DOM verification harness | External test harness and results | 32 checks passed. DOM simulation was distinguished from browser rendering. Originals: artifacts/A03-verification/. |
+| A04 | ChatGPT (Codex) | 2026-11-21 | Correct dark-theme colors, add clear theme switch, refine API titles and fallbacks | css/styles.css, index.html, js/script.js, README.md, docs/ | My screenshots and feedback drove the correction. Agent reran 32 DOM checks and tested 48 contrast combinations plus switch/title states. I later supplied screenshots of the corrected themes. Originals: artifacts/A04-theme-and-api-polish/. |
+| A05 | ChatGPT (Codex) | 2026-11-21 | Interpret Lighthouse findings and fix favicon/startup layout | index.html, js/script.js, assets/favicon.svg, README.md, docs/ | My report showed 91/100/96/100, main shifting, and favicon 404. Controls/count now occupy initial space and a favicon is declared. Agent checks passed; I reported 100/100/100/100 after rerunning. Originals: artifacts/A05-lighthouse-fixes/. |
+| A06 | ChatGPT (Codex) | 2026-11-21 | Generate delivery automation, finalize reports, and consolidate submission evidence | README.md, docs/; external setup, update, finalization and packaging scripts | Reports were updated from my test confirmation and learning reflection. The evidence bundle preserves earlier delivery scripts/patches, original final-documentation outputs, and the finalizer. It adds my complete C01 PDF locally and preserves inherited Assignment 2 evidence. Originals: artifacts/A06-finalization/. |
 
 ## Evidence
 
-The AI Evidence ZIP is submitted separately on Blackboard as:
+Submit separately on Blackboard:
 
-`202339150-MohammedShublaq-assignment2-ai-evidence.zip`
+`202339150-MohammedShublaq-assignment3-ai-evidence.zip`
 
 It contains:
 
-- `conversations/`: complete, unedited AI conversations, including failed attempts.
-- `artifacts/`: original AI-generated outputs before my edits, identified using the IDs in the Usage Log.
+- `conversations/C01.pdf`: complete, unedited export of this continuous conversation, including explanations, generated outputs, errors, corrections, and submission preparation.
+- `artifacts/A01-feature-implementation/` through `A06-finalization/`: original generated outputs and verification/delivery artifacts.
+- `provenance/202339150-MohammedShublaq-assignment2-ai-evidence.zip`: inherited Assignment 2 evidence, unchanged.
 
-The conversation logs and evidence ZIP are not committed to the repository.
-
+The evidence folders and ZIP are not committed to GitHub. The finalization script requests the saved C01 PDF and requires me to confirm completeness and understanding before building the final ZIP and applying the final documentation. A package without that complete export is not the final evidence submission.
 
 ## Declaration
 
 I declare that this report and the attached evidence document all of my AI use in this assignment, with complete and unedited conversations, and that I understand and can explain all the code I submitted. I understand that undeclared AI use or a false declaration will be treated as plagiarism according to KFUPM regulations.
 
 Name: Mohammed Shublaq
+
 Student ID: 202339150
-Date: 25/10/2026
-Signature: Mohammed Shublaq
+
+Date: 2026-11-21
