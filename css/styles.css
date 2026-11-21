@@ -1,3 +1,41 @@
+/* Theme colors shared by cards, forms, and controls. */
+:root {
+    color-scheme: light;
+    --page: #f8fafc;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --heading: #0f172a;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --link: #1d4ed8;
+    --badge: #dbeafe;
+    --badge-text: #1e40af;
+    --image: #f1f5f9;
+    --error: #b91c1c;
+    --success: #166534;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0b1220;
+    --surface: #172033;
+    --text: #e2e8f0;
+    --heading: #f8fafc;
+    --muted: #b6c4d6;
+    --border: #53627a;
+    --link: #93c5fd;
+    --badge: #1e3a5f;
+    --badge-text: #bfdbfe;
+    --image: #1e293b;
+    --error: #fca5a5;
+    --success: #86efac;
+}
+
+/* Always honor hidden, including on controls with flex or grid styling. */
+[hidden] {
+    display: none !important;
+}
+
 /* Reset default browser spacing */
 * {
     box-sizing: border-box;
@@ -11,8 +49,8 @@ html {
 
 /* General page styles */
 body {
-    background-color: #f8fafc;
-    color: #1f2937;
+    background-color: var(--page);
+    color: var(--text);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
 }
@@ -23,7 +61,7 @@ a {
 
 /* Header and navigation */
 header {
-    background-color: #0f172a;
+    background-color: var(--heading);
     background-image: radial-gradient(
         circle at 85% 40%,
         rgba(37, 99, 235, 0.25),
@@ -94,7 +132,7 @@ nav ul a:hover {
 
 .primaryButton {
     display: inline-block;
-    background-color: #2563eb;
+    background-color: var(--link);
     color: white;
     padding: 12px 22px;
     border: none;
@@ -117,13 +155,13 @@ nav ul a:hover {
 }
 
 .pageSection h2 {
-    color: #0f172a;
+    color: var(--heading);
     font-size: 36px;
     margin-bottom: 24px;
 }
 
 .pageSection h3 {
-    color: #0f172a;
+    color: var(--heading);
     margin-bottom: 12px;
 }
 
@@ -141,8 +179,8 @@ nav ul a:hover {
 }
 
 .skillsList li {
-    background-color: #dbeafe;
-    color: #1e40af;
+    background-color: var(--badge);
+    color: var(--badge-text);
     padding: 8px 16px;
     border-radius: 20px;
     font-weight: bold;
@@ -158,10 +196,10 @@ nav ul a:hover {
 
 .filterButton {
     padding: 10px 18px;
-    border: 1px solid #2563eb;
+    border: 1px solid var(--link);
     border-radius: 15px;
-    background-color: white;
-    color: #2563eb;
+    background-color: var(--surface);
+    color: var(--link);
     font: inherit;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -169,12 +207,12 @@ nav ul a:hover {
 
 .filterButton:hover,
 .filterButton[aria-pressed="true"] {
-    background-color: #2563eb;
+    background-color: var(--link);
     color: white;
 }
 
 .filterButton:focus-visible {
-    outline: 3px solid #0f172a;
+    outline: 3px solid var(--heading);
     outline-offset: 3px;
 }
 
@@ -186,8 +224,8 @@ nav ul a:hover {
 }
 
 .projectCard {
-    background-color: white;
-    border: 1px solid #e2e8f0;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
@@ -200,7 +238,7 @@ nav ul a:hover {
     height: auto;
     aspect-ratio: 3 / 2;
     object-fit: contain;
-    background-color: #f1f5f9;
+    background-color: var(--image);
 }
 
 .projectCard h3 {
@@ -217,14 +255,14 @@ nav ul a:hover {
 }
 
 #contact > p a {
-    color: #2563eb;
+    color: var(--link);
 }
 
 form {
     max-width: 700px;
-    background-color: white;
+    background-color: var(--surface);
     padding: 30px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
@@ -250,7 +288,7 @@ form {
 
 .formGroup input:focus,
 .formGroup textarea:focus {
-    border-color: #2563eb;
+    border-color: var(--link);
     outline: 2px solid #bfdbfe;
 }
 
@@ -265,16 +303,16 @@ form {
 }
 
 #formStatus[data-state="error"] {
-    color: #b91c1c;
+    color: var(--error);
 }
 
 #formStatus[data-state="success"] {
-    color: #166534;
+    color: var(--success);
 }
 
 /* Footer */
 footer {
-    background-color: #0f172a;
+    background-color: var(--heading);
     color: white;
     padding: 24px 30px;
     text-align: center;
@@ -332,4 +370,99 @@ footer {
     form {
         padding: 20px;
     }
+}
+/* Additional Assignment 3 controls. */
+nav {
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#themeToggle {
+    color: white;
+    background: transparent;
+    border: 1px solid #93c5fd;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font: inherit;
+    cursor: pointer;
+}
+
+#themeToggle[aria-pressed="true"] {
+    background: #2563eb;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--link);
+    outline-offset: 4px;
+}
+
+nav :focus-visible {
+    outline-color: #93c5fd;
+}
+
+.projectSort {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+select,
+.formGroup input,
+.formGroup textarea {
+    background-color: var(--surface);
+    color: var(--text);
+}
+
+select {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font: inherit;
+    max-width: 100%;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+#projectCount,
+#github > p {
+    margin-bottom: 20px;
+}
+
+.textLink,
+.repositoryCard a {
+    color: var(--link);
+}
+
+.repositoriesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 20px;
+}
+
+.repositoryCard {
+    min-width: 0;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow-wrap: anywhere;
+}
+
+.repositoryCard p + p {
+    margin-top: 16px;
+}
+
+#githubRetry {
+    margin-bottom: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .filterButton { transition: none; }
 }
