@@ -26,7 +26,8 @@ const projectGrid = document.getElementById("projectsGrid");
 const projectCards = Array.from(projectGrid.querySelectorAll(".projectCard"));
 const sortSelect = document.getElementById("projectSort");
 const projectCount = document.getElementById("projectCount");
-sortSelect.parentElement.hidden = false;
+// Controls already occupy their final space in HTML; enable rather than reveal them.
+sortSelect.disabled = false;
 
 function renderProjects() {
     const orderedCards = [...projectCards];
@@ -72,7 +73,7 @@ renderProjects();
 
 // Keep the button, document theme, and stored preference in sync.
 const themeToggle = document.getElementById("themeToggle");
-themeToggle.hidden = false;
+themeToggle.disabled = false;
 
 function renderTheme() {
     document.documentElement.dataset.theme = state.theme;

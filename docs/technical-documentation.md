@@ -84,4 +84,16 @@ The app loads no frameworks or third-party font libraries. The main script uses 
 
 On 2026-11-21, both JavaScript files passed Node syntax checks. Thirty-two automated jsdom checks passed for filtering/sorting, theme state, storage failure, form validation, loading/success/empty/error/retry/timeout cases, invalid API data, safe text rendering, and the six-card limit. The actual GitHub endpoint independently returned HTTP 200 and three repositories at that time.
 
-These automated checks simulate a DOM; they are not browser compatibility, rendering, keyboard, screen-reader, or Lighthouse tests. A local Chromium launch failed due to execution-environment restrictions. No browser rendering or performance score is claimed. The inherited Assignment 2 Chrome results do not establish results for this version. Complete the current checklist before claiming those checks passed.
+These automated checks simulate a DOM; they are not browser compatibility, rendering, keyboard, screen-reader, or Lighthouse tests. A local Chromium launch failed due to execution-environment restrictions. At that stage, no browser rendering or performance score was claimed. The inherited Assignment 2 Chrome results do not establish results for this version. Complete the current checklist before claiming those checks passed.
+
+## User Lighthouse report and startup correction
+
+The user supplied a Chrome Lighthouse 13.5.0 Mobile report, captured on 2026-11-21 at 21:50 GMT+3, using an emulated Moto G Power and Slow 4G throttling on localhost. Results before the startup correction were Performance 91, Accessibility 100, Best Practices 96, SEO 100, FCP 1.0s, LCP 1.1s, TBT 0ms, Speed Index 1.0s, and CLS 0.193.
+
+The expanded diagnostics identified a missing `/favicon.ico` request (404) and the entire `<main>` as the shifted element. A shifted element identifies the affected content, not necessarily the cause. Source inspection showed that the theme switch was hidden until the deferred script ran; revealing it could enlarge the mobile header and move main. The sorting row and count also appeared after initial parsing.
+
+The correction renders the switch and sorting row in normal flow from initial HTML, keeps their controls disabled until JavaScript initializes them, and supplies the initial project count in HTML. JavaScript enables these controls instead of revealing them, keeping their geometry present from first render. The CSS styling fixes their control dimensions. An explicit `assets/favicon.svg` link supplies a real favicon resource.
+
+Reference: [web.dev: Optimize Cumulative Layout Shift](https://web.dev/articles/optimize-cls).
+
+The functional and color checks still pass, and six additional startup/asset checks passed. These are structural checks, not a measured new CLS score. A fresh browser Lighthouse run is required to confirm the outcome; do not replace the reported 0.193 or original scores with estimated results. For a normal homepage audit, start at `index.html` without the `#projects` fragment.

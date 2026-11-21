@@ -56,9 +56,11 @@ An internet connection is required for the GitHub section. The rest of the portf
 ├── js/
 │   ├── theme.js
 │   └── script.js
-├── assets/images/
-│   ├── room-booking.webp
-│   └── kfupm-hub.webp
+├── assets/
+│   ├── favicon.svg
+│   └── images/
+│       ├── room-booking.webp
+│       └── kfupm-hub.webp
 ├── docs/
 │   ├── ai-usage-report.md
 │   ├── assignment2-ai-usage-report.md
@@ -71,7 +73,7 @@ An internet connection is required for the GitHub section. The rest of the portf
 
 JavaScript syntax checks, local asset/link checks, and 32 automated DOM checks passed on 2026-11-21. The real public GitHub endpoint also returned HTTP 200 and three repositories at test time. Mocked responses cover errors and unusual data. After the user reported a dark-theme contrast defect, 32 updated DOM checks passed again, together with 48 contrast combinations and switch-state/repository-title checks. Calculated text contrast in those combinations is at least 5.17:1. These checks do not replace rendering tests.
 
-DOM checks do not verify layout, browser rendering, or screen readers. Visual, cross-browser, keyboard, and Lighthouse checks remain pending. Complete [Testing Checklist](docs/testing-checklist.md) and the [AI report](docs/ai-usage-report.md) before submission. No live deployment or performance score is claimed.
+DOM checks do not verify layout, browser rendering, or screen readers. Further cross-browser, keyboard, and post-correction Lighthouse checks remain pending. Complete [Testing Checklist](docs/testing-checklist.md) and the [AI report](docs/ai-usage-report.md) before submission. No live deployment is claimed. The user-provided initial Mobile Lighthouse run on localhost scored Performance 91, Accessibility 100, Best Practices 96, and SEO 100, with CLS 0.193. Follow-up code reserves control space from initial HTML and adds a favicon to address the reported startup shift and favicon 404. Six additional startup/asset checks passed; new Lighthouse scores after these fixes remain pending.
 
 ## AI assistance and inherited work
 

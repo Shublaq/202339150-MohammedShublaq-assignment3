@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mohammed Shublaq's software engineering portfolio: Java projects, interface design, and recent GitHub repositories.">
     <title>Mohammed Shublaq | Portfolio</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/script.js" defer></script>
@@ -35,7 +36,7 @@
                 </li>
             </ul>
             <button id="themeToggle" class="themeSwitch" type="button" role="switch"
-                aria-checked="false" aria-label="Dark theme" title="Switch to dark theme" hidden>
+                aria-checked="false" aria-label="Dark theme" title="Switch to dark theme" disabled>
                 <span class="themeLabel" aria-hidden="true">Theme</span>
                 <span class="themeTrack" aria-hidden="true"><span class="themeThumb"></span></span>
                 <span id="themeState" class="themeState" aria-hidden="true">Light</span>
@@ -95,15 +96,15 @@
                 </button>
             </div>
 
-            <div class="projectSort" hidden>
+            <div class="projectSort">
                 <label for="projectSort">Sort projects</label>
-                <select id="projectSort">
+                <select id="projectSort" disabled>
                     <option value="featured">Featured order</option>
                     <option value="az">Title: A–Z</option>
                     <option value="za">Title: Z–A</option>
                 </select>
             </div>
-            <p id="projectCount" class="muted" role="status" aria-atomic="true"></p>
+            <p id="projectCount" class="muted" role="status" aria-atomic="true">2 of 2 projects shown.</p>
 
             <div id="projectsGrid" class="projectsGrid">
                 <article class="projectCard" data-category="java">

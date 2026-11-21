@@ -36,7 +36,9 @@ Use VS Code Live Server or a local Python server. Record actual results below. D
 - [ ] Check widths 320px, 768px, and 1440px for clipping, overlaps, horizontal scrolling, and usable controls.
 - [ ] Check the Console for unexpected JavaScript errors. Expected network failures during the deliberate API test are not application crashes.
 - [ ] Repeat core features in another browser and, if available, on a real phone.
-- [ ] Run Lighthouse in Chrome DevTools using Mobile mode, fix actionable issues, and record results.
+- [x] User ran Mobile Lighthouse and supplied the report plus expanded diagnostics. Initial scores: 91 / 100 / 96 / 100, CLS 0.193.
+- [x] Addressed the favicon 404 and reserved initial space for the theme/sort controls and project count. Six startup/asset checks passed.
+- [ ] Rerun Mobile Lighthouse after the startup correction, using the homepage URL without a section fragment; record the new scores and CLS without estimating them.
 
 | Check | Actual browser / viewport / mode | Result / notes |
 |---|---|---|
@@ -47,10 +49,10 @@ Use VS Code Live Server or a local Python server. Record actual results below. D
 | Live API and recovery | Pending | Pending |
 | Contact validation | Pending | Pending |
 | Second browser / phone | Pending | Pending |
-| Lighthouse Performance | Pending | Pending |
-| Lighthouse Accessibility | Pending | Pending |
-| Lighthouse Best Practices | Pending | Pending |
-| Lighthouse SEO | Pending | Pending |
+| Lighthouse Performance | Mobile, emulated Moto G Power / Slow 4G | Initial report: 91; post-correction rerun pending |
+| Lighthouse Accessibility | Same initial Mobile report | 100 |
+| Lighthouse Best Practices | Same initial Mobile report | 96; favicon 404 identified; rerun pending |
+| Lighthouse SEO | Same initial Mobile report | 100 |
 
 ## Before Blackboard submission
 
